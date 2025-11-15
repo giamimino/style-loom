@@ -12,7 +12,7 @@ export default function Header() {
   const router = useRouter()
   const pathname = usePathname();
   return (
-    <header className="w-full px-15 fixed top-0 left-0 flex gap-4 items-end">
+    <header className="w-full px-15 flex gap-4 items-end">
       <DashedBox directions={{ right: true, bottom: true }} />
       <div className="border-b border-dashed py-5 border-b-dark-15 w-full flex justify-between items-center">
         <nav className="flex gap-3.5">

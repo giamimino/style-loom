@@ -1,14 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brawn-60: #AE9B84;
-  --color-dark-06: #0F0F0F;
+  --color-brawn-60: #ae9b84;
+  --color-brown-70: #C2B4A3;
+  --color-dark-06: #0f0f0f;
+  --color-dark-10: #1a1a1a;
+  --color-dark-12: #1f1f1f;
   --color-dark-15: #262626;
-  --color-dark-10: #1A1A1A;
-  --color-grey-70: #B3B3B2;
+  --color-dark-25: #404040;
+  --color-grey-70: #b3b3b2;
   --color-grey-40: #676665;
 }
 
 body {
-  background-color: #0F0F0F;
+  background-color: #0f0f0f;
+}
+
+/* animations classes */
+
+.fadeDown {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(-10px);
+  animation: fadeDown 1s ease forwards;
+}
+
+/* animations keyframes */
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-10px);
+  }to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
