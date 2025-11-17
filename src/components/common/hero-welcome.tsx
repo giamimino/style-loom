@@ -23,8 +23,7 @@ export default function HeroWelcome() {
         alt="imge"
       />
       <div
-        className="w-full border-3 
-      border-dark-15 border-dashed border-t-0 h-100 flex flex-1 relative"
+        className="w-full border-3 border-dark-15 border-dashed border-t-0 h-100 flex flex-1 relative"
       >
         <div className="flex-1 flex flex-col gap-3.5 p-20 max-lg:p-15 max-md:p-10 max-sm:p-5">
           <div className="flex gap-3.5">

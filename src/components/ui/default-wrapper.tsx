@@ -9,7 +9,9 @@ export default function DefaultWrapper({
   flex,
   flexBasis,
   dFlex,
-  flexWrap
+  flexWrap,
+  rel,
+  noOverflow
 }: Children & {
   noBorder?: { t?: boolean; r?: boolean; b?: boolean; l?: boolean };
   noRounded?:
@@ -20,7 +22,9 @@ export default function DefaultWrapper({
   flex?: number,
   flexBasis?: string,
   dFlex?: boolean,
-  flexWrap?: boolean
+  flexWrap?: boolean,
+  rel?: boolean,
+  noOverflow?: boolean
 }) {
   const borders = {
     "border-t-0": noBorder?.t,
@@ -44,7 +48,9 @@ export default function DefaultWrapper({
         rounds,
         wFit ? "w-fit" : "w-full",
         dFlex && "flex",
-        flexWrap && "flex-wrap"
+        flexWrap && "flex-wrap",
+        rel && "relative",
+        noOverflow && "overflow-hidden"
       )}
       style={{
         padding: p
