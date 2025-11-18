@@ -1,54 +1,74 @@
-"use client"
+"use client";
 import DefaultButton from "@/components/ui/default-button";
-import { auth, googleProvider } from "@/config/firebase-config";
-import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import { useState } from "react";
+import DefaultInput from "@/components/ui/default-input";
+import DefaultWrapper from "@/components/ui/default-wrapper";
+import { auth, googleProvider } from "@/config/firebase";
+import { useValidateEmail } from "@/hooks/useValidateEmail";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import React from "react";
 
 export default function AuthPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  console.log(auth.currentUser?.email);
-  
-  const signIn = async () => {
+  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-    } catch(err) {
+      const formData = new FormData(e.currentTarget);
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+      if(!email || !password) throw new Error("All fields are required.")
+        
+      const isEmailValidate = useValidateEmail(email)
+      if(!isEmailValidate.validation) throw new Error("Email is not valid.")
+      
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
       console.error(err);
     }
   };
 
+  console.log(auth);
+
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const logout = async () => {
-    try {
-      await signOut(auth)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.error(err));
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
-    <div className="text-white">
-      <input
-        placeholder="Email..."
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="password..."
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div className="text-white p-2 pt-8 w-full flex justify-center flex-col items-center gap-2.5">
+      <form onSubmit={signIn}>
+        <DefaultWrapper p={{ p: 6 }} wFit col gap={2.5}>
+          <DefaultInput
+            type="email"
+            name="email"
+            placeholder="Email..."
+            required
+          />
+          <DefaultInput
+            type="password"
+            name="password"
+            placeholder="password..."
+            required
+          />
 
-      <DefaultButton onClick={signIn} label="Sign in" />
-      <DefaultButton onClick={signInWithGoogle} label="Sign in With Google" active />
-      <DefaultButton onClick={logout} label="Log out" />
+          <DefaultButton type="submit" label="Sign in" active textCenter />
+        </DefaultWrapper>
+      </form>
+      <DefaultButton
+        onClick={signInWithGoogle}
+        label="Sign in With Google"
+        noBoder
+        icon="logos:google-icon"
+      />
     </div>
   );
 }

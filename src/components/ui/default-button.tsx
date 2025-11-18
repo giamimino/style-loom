@@ -9,6 +9,8 @@ export default function DefaultButton({
   icon,
   p,
   noBoder,
+  wFit,
+  textCenter,
   ...rest
 }: DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -24,15 +26,19 @@ export default function DefaultButton({
     text?: string;
     bg?: string;
   };
+  wFit?: boolean,
+  textCenter?: boolean,
 }) {
   return (
     <button
       className={clsx(
-        `border border-dark-15 border-dashed hover:opacity-80 rounded-md cursor-pointer`,
+        `border border-dark-15 border-dashed hover:opacity-80 flex gap-2.5 items-center rounded-md cursor-pointer`,
         active && "bg-dark-10 border-none text-white p-px",
         !colors?.text && "text-grey-70",
         noBoder && "border-0",
-        !p && "py-2.25 px-3.75"
+        !p && "py-2.25 px-3.75",
+        wFit && "w-fit",
+        textCenter && "text-center justify-center",
       )}
       {...rest}
       style={{

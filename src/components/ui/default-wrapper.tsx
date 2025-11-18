@@ -11,7 +11,9 @@ export default function DefaultWrapper({
   dFlex,
   flexWrap,
   rel,
-  noOverflow
+  noOverflow,
+  gap,
+  col
 }: Children & {
   noBorder?: { t?: boolean; r?: boolean; b?: boolean; l?: boolean };
   noRounded?:
@@ -24,7 +26,9 @@ export default function DefaultWrapper({
   dFlex?: boolean,
   flexWrap?: boolean,
   rel?: boolean,
-  noOverflow?: boolean
+  noOverflow?: boolean,
+  gap?: number,
+  col?: boolean
 }) {
   const borders = {
     "border-t-0": noBorder?.t,
@@ -50,7 +54,9 @@ export default function DefaultWrapper({
         dFlex && "flex",
         flexWrap && "flex-wrap",
         rel && "relative",
-        noOverflow && "overflow-hidden"
+        noOverflow && "overflow-hidden",
+        col && !dFlex && "flex flex-col",
+        col && "flex-col"
       )}
       style={{
         padding: p
@@ -62,6 +68,7 @@ export default function DefaultWrapper({
           : "",
           flex: flex,
           flexBasis: flexBasis,
+          gap: gap ? `${gap * 4}px` : ""
       }}
     >
       {children}
