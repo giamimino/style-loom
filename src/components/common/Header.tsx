@@ -2,6 +2,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import DashedBox from "../ui/dashed-box";
 import DefaultButton from "../ui/default-button";
+import { useAuth } from "@/contexts/AuthContext";
+import Image from "next/image";
 
 const navs = [
   { label: "Home", url: "/" },
@@ -9,7 +11,8 @@ const navs = [
 ];
 
 export default function Header() {
-  const router = useRouter()
+  const { currentUser } = useAuth();
+  const router = useRouter();
   const pathname = usePathname();
   return (
     <header className="w-full px-15 flex gap-4 items-end">
@@ -25,8 +28,24 @@ export default function Header() {
             />
           ))}
         </nav>
-        <h1 className="text-white font-medium text-xl text-center">Style.Loom</h1>
+        <h1 className="text-white font-medium text-xl text-center">
+          Style.Loom
+        </h1>
         <div className="flex gap-3.5 items-center">
+          {currentUser && (
+            <button
+              className="p-1 border border-dark-10 cursor-pointer rounded-lg"
+              onClick={() => router.push("/profile")}
+            >
+              <Image
+                alt="user-profile"
+                src={currentUser.photoURL ?? "/welcome-image-girl.webp"}
+                width={48}
+                height={48}
+                className="object-cover w-7 h-7 rounded-full "
+              />
+            </button>
+          )}
           <DefaultButton
             colors={{ bg: "dark-10", text: "white" }}
             p={{ p: 3 }}

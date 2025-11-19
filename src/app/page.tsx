@@ -4,6 +4,7 @@ import DefaultButton from "@/components/ui/default-button";
 import DefaultTitle from "@/components/ui/default-title";
 import DefaultWrapper from "@/components/ui/default-wrapper";
 import IconWrapper from "@/components/ui/icon-wrapper";
+import { useAuth } from "@/contexts/AuthContext";
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 
@@ -80,6 +81,7 @@ const process = [
 ];
 
 export default function Home() {
+  
   const [lastestProducts, setLastestProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState([
     { cat: "All", isActive: false },
